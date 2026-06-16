@@ -1,0 +1,13 @@
+# gitleaks config for this repo.
+# The demo-app/ tree contains an INTENTIONALLY hardcoded fake secret used to
+# demonstrate the Fortify skill. It is allowlisted so the security gate does not
+# flag the deliberate teaching example. Do NOT add real secrets here.
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Intentionally-vulnerable demo fixtures (teaching example, not a real secret)"
+paths = [
+  '''demo-app/.*''',
+  '''docs/sample-run/.*''',
+]
