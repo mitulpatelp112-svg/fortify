@@ -1,0 +1,39 @@
+{
+  "$schema": "https://raw.githubusercontent.com/oasis-tcs/sarif-spec/master/Schemata/sarif-schema-2.1.0.json",
+  "version": "2.1.0",
+  "runs": [
+    {
+      "tool": {
+        "driver": {
+          "name": "Fortify",
+          "informationUri": "https://github.com/mitulpatelp112-svg/cybersecurity-",
+          "version": "1.0.0",
+          "rules": [
+            { "id": "F-001", "name": "SqlInjection", "shortDescription": { "text": "SQL injection in POST /login" } },
+            { "id": "F-002", "name": "BrokenAccessControl", "shortDescription": { "text": "Unauthenticated admin endpoint exposes password hashes" } },
+            { "id": "F-003", "name": "Idor", "shortDescription": { "text": "IDOR: any note readable without authorization" } },
+            { "id": "F-004", "name": "SqlInjection", "shortDescription": { "text": "Second-order SQL injection in GET /notes/:id" } },
+            { "id": "F-005", "name": "HardcodedSecret", "shortDescription": { "text": "Hardcoded secret committed to source" } },
+            { "id": "F-006", "name": "WeakPasswordHash", "shortDescription": { "text": "Weak password hashing (unsalted SHA1)" } },
+            { "id": "F-007", "name": "ReflectedXss", "shortDescription": { "text": "Reflected XSS in GET /search" } },
+            { "id": "F-008", "name": "MissingSecurityHeaders", "shortDescription": { "text": "Missing security headers" } },
+            { "id": "F-009", "name": "VerboseErrors", "shortDescription": { "text": "Verbose error handler leaks stack traces" } },
+            { "id": "F-010", "name": "NoRateLimit", "shortDescription": { "text": "No rate limiting on authentication" } }
+          ]
+        }
+      },
+      "results": [
+        { "ruleId": "F-001", "level": "error", "message": { "text": "username concatenated into SQL; auth bypass confirmed live." }, "locations": [ { "physicalLocation": { "artifactLocation": { "uri": "src/server.js" }, "region": { "startLine": 30 } } } ] },
+        { "ruleId": "F-002", "level": "error", "message": { "text": "GET /admin/users requires no auth and returns pwd_hash." }, "locations": [ { "physicalLocation": { "artifactLocation": { "uri": "src/server.js" }, "region": { "startLine": 51 } } } ] },
+        { "ruleId": "F-003", "level": "error", "message": { "text": "GET /notes/:id has no auth/ownership check." }, "locations": [ { "physicalLocation": { "artifactLocation": { "uri": "src/server.js" }, "region": { "startLine": 44 } } } ] },
+        { "ruleId": "F-004", "level": "error", "message": { "text": ":id concatenated into SQL query." }, "locations": [ { "physicalLocation": { "artifactLocation": { "uri": "src/server.js" }, "region": { "startLine": 45 } } } ] },
+        { "ruleId": "F-005", "level": "error", "message": { "text": "Secret (type sk_live_*) hardcoded; value redacted." }, "locations": [ { "physicalLocation": { "artifactLocation": { "uri": "src/server.js" }, "region": { "startLine": 12 } } } ] },
+        { "ruleId": "F-006", "level": "error", "message": { "text": "Unsalted SHA1 password hashing." }, "locations": [ { "physicalLocation": { "artifactLocation": { "uri": "src/server.js" }, "region": { "startLine": 21 } } } ] },
+        { "ruleId": "F-007", "level": "error", "message": { "text": "q reflected into HTML unescaped; reflected XSS." }, "locations": [ { "physicalLocation": { "artifactLocation": { "uri": "src/server.js" }, "region": { "startLine": 40 } } } ] },
+        { "ruleId": "F-008", "level": "warning", "message": { "text": "No CSP/HSTS/nosniff/frame-ancestors headers." }, "locations": [ { "physicalLocation": { "artifactLocation": { "uri": "src/server.js" }, "region": { "startLine": 61 } } } ] },
+        { "ruleId": "F-009", "level": "warning", "message": { "text": "Error handler returns stack trace and file paths." }, "locations": [ { "physicalLocation": { "artifactLocation": { "uri": "src/server.js" }, "region": { "startLine": 57 } } } ] },
+        { "ruleId": "F-010", "level": "warning", "message": { "text": "No rate limiting on POST /login." }, "locations": [ { "physicalLocation": { "artifactLocation": { "uri": "src/server.js" }, "region": { "startLine": 28 } } } ] }
+      ]
+    }
+  ]
+}
